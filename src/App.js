@@ -1,15 +1,15 @@
 import React from 'react';
 
 // WITH HTML TAG
-function App() {
-  // const greeting ="Hello, world!";
-  // const dom = <h1 className="foo">{greeting}</h1>;
-  const labelTag = <label htmlFor="bar">bar</label>
-  const inputTag = <React.Fragment>{labelTag}<input type="text" onChange={ () => {console.log("I am Clicked!")}} /></React.Fragment>;
+// function App() {
+//   // const greeting ="Hello, world!";
+//   // const dom = <h1 className="foo">{greeting}</h1>;
+//   const labelTag = <label htmlFor="bar">bar</label>
+//   const inputTag = <React.Fragment>{labelTag}<input type="text" onChange={ () => {console.log("I am Clicked!")}} /></React.Fragment>;
   
 
-  return inputTag;
-}
+//   return inputTag;
+// }
 
 //WITH JSX
 // function App() {
@@ -19,5 +19,19 @@ function App() {
 //     "Hello, world!",
 //   );
 // }
+
+const App = () => {
+  return (
+    <div>
+      <Cat />
+      <Cat />
+      <Cat />
+    </div>
+  );
+}
+
+const Cat = () => {
+  return <div>mya-!</div>
+}
 
 export default App;
