@@ -2,11 +2,13 @@ import React from 'react';
 
 // WITH HTML TAG
 function App() {
-  return (
-    <h1>
-        Hello, world!
-    </h1>
-  );
+  // const greeting ="Hello, world!";
+  // const dom = <h1 className="foo">{greeting}</h1>;
+  const labelTag = <label htmlFor="bar">bar</label>
+  const inputTag = <React.Fragment>{labelTag}<input type="text" onChange={ () => {console.log("I am Clicked!")}} /></React.Fragment>;
+  
+
+  return inputTag;
 }
 
 //WITH JSX
