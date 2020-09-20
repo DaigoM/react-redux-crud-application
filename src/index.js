@@ -15,6 +15,7 @@ import * as serviceWorker from './serviceWorker';
 // アプリケーション内部の全stateはこのstoreに集約されている
 const store = createStore(reducer)
 
+// Providerのおかげでコンポーネント間でバケツリレーをする必要がなくなる
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
