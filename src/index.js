@@ -8,10 +8,12 @@ import { Provider } from 'react-redux';
 // アクション・クリエイターは本来、純粋なオブジェクトを返す。
 // このmiddlewareでアクションの代わりに関数を返せるようにする
 import thunk from 'redux-thunk';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import './index.css';
 import reducer from './reducers';
 import EventsIndex from './components/events_index';
+import EventsNew from './components/events_new';
 import * as serviceWorker from './serviceWorker';
 
 // store生成
@@ -23,7 +25,14 @@ const store = createStore(reducer, applyMiddleware(thunk))
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <EventsIndex />
+      <BrowserRouter>
+        <Switch>
+          
+          <Route exact path="/events/new" component={EventsNew} />
+          
+          <Route exact path="/" component={EventsIndex} />
+        </Switch>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
