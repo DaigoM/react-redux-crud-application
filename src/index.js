@@ -1,25 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // store作成パッケージ
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux';
 // storeを全コンポーネントに渡す機能を持つ
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+// middleware
+// アクション・クリエイターは本来、純粋なオブジェクトを返す。
+// このmiddlewareでアクションの代わりに関数を返せるようにする
+import thunk from 'redux-thunk';
 
 import './index.css';
-import reducer from './reducers'
-import App from './components/App';
+import reducer from './reducers';
+import EventsIndex from './components/events_index';
 import * as serviceWorker from './serviceWorker';
 
 // store生成
 // 唯一のstore
 // アプリケーション内部の全stateはこのstoreに集約されている
-const store = createStore(reducer)
+const store = createStore(reducer, applyMiddleware(thunk))
 
 // Providerのおかげでコンポーネント間でバケツリレーをする必要がなくなる
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <EventsIndex />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
