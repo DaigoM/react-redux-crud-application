@@ -1,6 +1,6 @@
 import _ from 'lodash'
 // アクションのインポート
-import { READ_EVENTS } from '../actions'
+import { READ_EVENTS, DELETE_EVENT } from '../actions'
 
 // このreducerは関数として定義
 export default (events = {}, action) => {
@@ -17,6 +17,10 @@ export default (events = {}, action) => {
             // _.mapKeys(action.response.data, 'id')
 
             return _.mapKeys(action.response.data, 'id')
+        case DELETE_EVENT:
+            delete events[action.id]
+            // スプレット演算子
+            return { ...events}
         default :
             return events
     }
