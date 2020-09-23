@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 再利用
 export const READ_EVENTS = 'READ_EVENTS'
-
+export const POST_EVENT = 'CREATE_EVENT'
 // GET, POST, PUT, DELETEなどをする際に使用するURL
 const ROOT_URL = 'https://udemy-utils.herokuapp.com/api/v1'
 // パラメータ
@@ -16,4 +16,9 @@ export const readEvents = () => async dispatch => {
     const response = await axios.get(`${ROOT_URL}/events${QUERYSTRING}`)
     // reducer側に渡す
     dispatch({ type: READ_EVENTS, response })
+}
+
+export const postEvent = value => async dispatch => {
+    const response = await axios.post(`${ROOT_URL}/events${QUERYSTRING}`, value)
+    dispatch({ type: POST_EVENT, response })
 }

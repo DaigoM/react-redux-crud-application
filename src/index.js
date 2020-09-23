@@ -23,7 +23,6 @@ const store = createStore(reducer, applyMiddleware(thunk))
 
 // Providerのおかげでコンポーネント間でバケツリレーをする必要がなくなる
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
@@ -33,8 +32,7 @@ ReactDOM.render(
           <Route exact path="/" component={EventsIndex} />
         </Switch>
       </BrowserRouter>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 
