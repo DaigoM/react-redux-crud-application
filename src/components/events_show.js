@@ -17,6 +17,11 @@ class EventsShow extends Component {
         this.onDeleteClick = this.onDeleteClick.bind(this)
     }
 
+    componentDidMount() {
+        const { id } = this.props.match.params
+        if (id) this.props.getEvent(id)
+    }
+
     renderField(field){
         const { input, label, type, meta: { touched, error } } = field
 
@@ -31,16 +36,15 @@ class EventsShow extends Component {
         const { id } = this.props.match.params
         await this.props.deleteEvent(id)
         this.props.history.push('/')
-
     }
 
     async onSubmit(values) {
-        // await this.props.postEvent(values)
+        await this.props.putEvent(values)
         this.props.history.push('/')
     }
 
     render(){
-        const { handleSubmit, pristine, submitting } = this.props
+        const { handleSubmit, pristine, submitting, invalid } = this.props
 
         return (
             <React.Fragment>
@@ -49,7 +53,7 @@ class EventsShow extends Component {
                     <Field label="Body" name="body" type="text" component={this.renderField} />
 
                     <div>
-                        <input type="submit" value="submit" disabled={pristine || submitting} />
+                        <input type="submit" value="submit" disabled={pristine || submitting || invalid} />
                         <Link to="/">Cancel</Link>
                         <Link to="/" onClick={this.onDeleteClick} >Delete</Link>
                     </div>
@@ -69,9 +73,17 @@ const validate = values => {
     return errors
 }
 
-const mapDispatchToProps = ({ deleteEvent })
+const mapStateToProps = (state, ownProps) => {
+    const event = state.events[ownProps.match.params.id]
+    // 一つの詳細ページを表示するなかで、そのイベントの各種情報を画面に
+    // 表示するので、そのオブジェクトを渡す
+    return { initialValues: event, event}
+} 
+
+const mapDispatchToProps = ({ deleteEvent, getEvent, putEvent })
 
 // connect実行
-export default connect(null, mapDispatchToProps)(
-    reduxForm({ validate, form: 'eventShowForm' })(EventsShow)
+// enableReinitialize = フォーム内容が変更される度に更新
+export default connect(mapStateToProps, mapDispatchToProps)(
+    reduxForm({ validate, form: 'eventShowForm', enableReinitialize: true })(EventsShow)
 )
